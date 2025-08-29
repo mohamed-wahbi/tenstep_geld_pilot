@@ -33,7 +33,7 @@ const NewClientCharge: React.FC = () => {
             Expenses Management System
           </h5>
           <img 
-            src={require('../assets/logo-removebg-preview.png')} 
+            src={require('../assets/tenstep.png')} 
             alt='logo' 
             className={styles.logoImgDash} 
           />

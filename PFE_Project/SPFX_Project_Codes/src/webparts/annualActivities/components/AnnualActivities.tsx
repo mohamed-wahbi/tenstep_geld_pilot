@@ -26,11 +26,6 @@ const AnnualActivities: React.FC = () => {
   //   }, [token, isAdmin]);
 
 
-
-
-
-  
-
   return (
     <div className={styles.DashComp}>
       <div className={styles.headerDash}>
@@ -39,7 +34,7 @@ const AnnualActivities: React.FC = () => {
            Annual Financial Activities
           </h5>
           <img 
-            src={require('../assets/logo-removebg-preview.png')} 
+            src={require('../assets/tenstep.png')} 
             alt='logo' 
             className={styles.logoImgDash} 
           />

@@ -4,31 +4,68 @@ const { Revenue } = require("../models/RevenueModel.js");
 const { MonthlyExpenseResult } = require("../models/MonthlyExpenseResultModel.js");
 const { MonthlyFinanceTrainML } = require("../models/PredictionsModels/MonthlyFinance.js")
 const axios = require('axios')
-
-
+const { ClientSecretCredential } = require("@azure/identity");
+require("dotenv").config()
 
 
 
 
 // ---------------------------------Token Auto Generate-----------------------------------------
 
-require("dotenv").config()
-const { tanentId, clientId, clientSecret, url } = process.env
+// require("dotenv").config()
+// const { tanentId, clientId, clientSecret, url } = process.env
 
-const getAccessToken = async () => {
-    const tokenResponse = await axios.post(
-        `https://login.microsoftonline.com/${tanentId}/oauth2/token`,
-        new URLSearchParams({
-            grant_type: "client_credentials",
-            client_id: `${clientId}`,
-            client_secret: `${clientSecret}`,
-            resource: `${url}`
-        })
-    );
-    return tokenResponse.data.access_token;
-};
+// const getAccessToken = async () => {
+//     const tokenResponse = await axios.post(
+//         `https://login.microsoftonline.com/${tanentId}/oauth2/token`,
+//         new URLSearchParams({
+//             grant_type: "client_credentials",
+//             client_id: `${clientId}`,
+//             client_secret: `${clientSecret}`,
+//             resource: `${url}`
+//         })
+//     );
+//     return tokenResponse.data.access_token;
+// };
 
 // ___________________________________________________________________________________________
+
+
+
+
+
+// ________________________1_ Graph API Tken Keys ___________________________
+const tenantId = process.env.tenantId;
+const clientId = process.env.clientId;
+const clientSecret = process.env.clientSecret;
+
+// Token Graph
+const credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+// --------------------------------------------------------------------------------
+
+// ________________________2_ Generate Token With Graph API________________________
+async function getAccessToken() {
+    const token = await credential.getToken("https://graph.microsoft.com/.default");
+    return token.token;
+}
+// --------------------------------------------------------------------------------
+
+
+// ________________________3_ Generate Site ID With Graph API ________________________
+async function getSiteId() {
+    const token = await getAccessToken();
+    const sitePath = "tenstepfrance.sharepoint.com:/sites/GeldPilot:"; // important les ":" à la fin
+
+    const response = await axios.get(
+        `https://graph.microsoft.com/v1.0/sites/${sitePath}`,
+        {
+            headers: { Authorization: `Bearer ${token}` },
+        }
+    );
+    return response.data.id; // récupère le siteId réel
+}
+// --------------------------------------------------------------------------------
+
 
 
 
@@ -49,7 +86,7 @@ module.exports.CreateMonthlyFinancialActivitysCtrl = asyncHandler(async (req, re
         const { error } = CreateMonthlyActivityValidation(req.body);
         if (error) return res.status(400).json({ message: error.details[0].message });
 
-        const { year, month, bankFund , facteurExterne} = req.body;
+        const { year, month, bankFund, facteurExterne } = req.body;
 
         // 🔹 2. Vérifier si une activité pour ce mois et cette année existe déjà
         const existingActivity = await MonthlyFinancialActivities.findOne({ year, month });
@@ -108,30 +145,40 @@ module.exports.CreateMonthlyFinancialActivitysCtrl = asyncHandler(async (req, re
         });
 
 
-
-
-        // 4️⃣ Préparer et envoyer les données vers Dataverse
-        const data = {
-            cr604_year: year,
-            cr604_month: month,
-            cr604_bankfund: bankFund,
-            cr604_totalrevenue: totalRevenue,
-            cr604_totalexpenses: totalExpenses,
-            cr604_rest: totalRevenue - totalExpenses,
-            cr604_globalrest: (totalRevenue - totalExpenses) + bankFund,
-            cr604_financialstatus: financialStatus,
+        // 1️⃣ Préparer les données pour SharePoint
+        const financialDataSharePoint = {
+            Title: `Id`, // SharePoint nécessite le champ Title
+            Year: year.toString(),
+            Month: month.toString(),
+            BankFund: bankFund.toString(),
+            TotalRevenue: totalRevenue.toString(),
+            TotalExpenses: totalExpenses.toString(),
+            Rest: (totalRevenue - totalExpenses).toString(),
+            GlobalRest: ((totalRevenue - totalExpenses) + bankFund).toString(),
+            FinancialStatus: financialStatus
         };
 
-        const dataverseResponse = await axios.post(
-            `${url}/api/data/v9.0/cr604_monthly_financial_activities_gps`,
-            data,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            }
-        );
+
+        // 2️⃣ Insérer dans SharePoint
+        const token = await getAccessToken();
+        const siteId = await getSiteId();
+        const listName = "Monthly_Financial_Activities"; // Nom de ta liste SharePoint
+
+        try {
+            const response = await axios.post(
+                `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${listName}/items`,
+                { fields: financialDataSharePoint },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+        } catch (error) {
+        }
+
 
         // 🔹 7. Enregistrement dans la base de données
         await newActivity.save();
@@ -144,7 +191,7 @@ module.exports.CreateMonthlyFinancialActivitysCtrl = asyncHandler(async (req, re
             prevMonth = 12;
             prevYear -= 1;
         }
-        
+
         // Recherche du mois précédent
         const previousMonth = await MonthlyFinancialActivities.findOne({
             year: prevYear.toString(),  // Convertir en string si nécessaire
@@ -193,8 +240,6 @@ module.exports.CreateMonthlyFinancialActivitysCtrl = asyncHandler(async (req, re
 
 
 });
-
-
 
 
 /*--------------------------------------------------

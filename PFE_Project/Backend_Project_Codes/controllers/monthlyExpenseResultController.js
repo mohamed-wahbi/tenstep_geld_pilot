@@ -2,7 +2,10 @@ const asyncHandler = require("express-async-handler");
 const { MonthlyExpenseHistory } = require('../models/MonthlyExpenseHistoryModel.js')
 const { MonthlyExpense } = require("../models/monthlyExpenseModel.js");
 const { MonthlyExpenseResult } = require("../models/MonthlyExpenseResultModel.js");
-const axios = require('axios')
+const axios = require('axios');
+const { ClientSecretCredential } = require("@azure/identity");
+require("dotenv").config()
+
 
 
 
@@ -10,24 +13,56 @@ const axios = require('axios')
 
 // ---------------------------------Token Auto Generate-----------------------------------------
 
-require("dotenv").config()
-const { tanentId, clientId, clientSecret, url } = process.env
+// require("dotenv").config()
+// const { tanentId, clientId, clientSecret, url } = process.env
 
-const getAccessToken = async () => {
-    const tokenResponse = await axios.post(
-        `https://login.microsoftonline.com/${tanentId}/oauth2/token`,
-        new URLSearchParams({
-            grant_type: "client_credentials",
-            client_id: `${clientId}`,
-            client_secret: `${clientSecret}`,
-            resource: `${url}`
-        })
-    );
-    return tokenResponse.data.access_token;
-};
+// const getAccessToken = async () => {
+//     const tokenResponse = await axios.post(
+//         `https://login.microsoftonline.com/${tanentId}/oauth2/token`,
+//         new URLSearchParams({
+//             grant_type: "client_credentials",
+//             client_id: `${clientId}`,
+//             client_secret: `${clientSecret}`,
+//             resource: `${url}`
+//         })
+//     );
+//     return tokenResponse.data.access_token;
+// };
 
 // ___________________________________________________________________________________________
 
+
+// ________________________1_ Graph API Tken Keys ___________________________
+const tenantId = process.env.tenantId;
+const clientId = process.env.clientId;
+const clientSecret = process.env.clientSecret;
+
+// Token Graph
+const credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+// --------------------------------------------------------------------------------
+
+// ________________________2_ Generate Token With Graph API________________________
+async function getAccessToken() {
+    const token = await credential.getToken("https://graph.microsoft.com/.default");
+    return token.token;
+}
+// --------------------------------------------------------------------------------
+
+
+// ________________________3_ Generate Site ID With Graph API ________________________
+async function getSiteId() {
+    const token = await getAccessToken();
+    const sitePath = "tenstepfrance.sharepoint.com:/sites/GeldPilot:"; // important les ":" à la fin
+
+    const response = await axios.get(
+        `https://graph.microsoft.com/v1.0/sites/${sitePath}`,
+        {
+            headers: { Authorization: `Bearer ${token}` },
+        }
+    );
+    return response.data.id; // récupère le siteId réel
+}
+// --------------------------------------------------------------------------------
 
 
 
@@ -106,25 +141,29 @@ module.exports.monthExpensResManuelyCtrl = asyncHandler(async (req, res) => {
             }));
 
 
-            // Étape 5: inserer les donnee au dataverse :
-            const insertDataIntoDataverse = expensesToArchive.map(expense => ({
-                cr604_covredday: expense.covredDay.toString(), // Convertir en string si nécessaire
-                cr604_expensename: expense.expenseName,
-                cr604_year: expense.year.toString(), // Correction ici
-                cr604_expensetype: expense.expenseType,
-                cr604_estimatedamount: expense.estimatedAmount.toString(), // Si nécessaire
-                cr604_actualamount: expense.actualAmount.toString(), // Si nécessaire
-                cr604_chargestatus: expense.chargeStatus,
-                cr604_month: expense.month.toString(), // Correction ici
+            // 1️⃣ Préparer les données pour SharePoint
+            const insertDataIntoSharepointListe = expensesToArchive.map(expense => ({
+                Title: expense.expenseName,               // ⚠️ SharePoint nécessite 'Title'
+                Covredday: expense.covredDay.toString(),
+                Year: expense.year.toString(),
+                ExpenseType: expense.expenseType,
+                EstimatedAmount: expense.estimatedAmount.toString(),
+                ActualAmount: expense.actualAmount.toString(),
+                ChargeStatus: expense.chargeStatus,
+                Month: expense.month.toString(),
             }));
-            
+
+            // 2️⃣ Insérer chaque élément dans la liste SharePoint
+            const token = await getAccessToken();
+            const siteId = await getSiteId();
+            const listName = "Expense_Result"; // Nom de la liste SharePoint
+
             try {
-                // Envoyer chaque objet individuellement avec `Promise.all`
                 const responses = await Promise.all(
-                    insertDataIntoDataverse.map(data =>
+                    insertDataIntoSharepointListe.map(item =>
                         axios.post(
-                            `${url}/api/data/v9.0/cr604_expense_result_gps`,
-                            data,
+                            `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${listName}/items`,
+                            { fields: item },
                             {
                                 headers: {
                                     Authorization: `Bearer ${token}`,
@@ -134,12 +173,12 @@ module.exports.monthExpensResManuelyCtrl = asyncHandler(async (req, res) => {
                         )
                     )
                 );
-            
+
+                console.log("Insertion dans SharePoint réussie :", responses.length, "éléments insérés.");
             } catch (error) {
-                console.error("Erreur lors de l'insertion dans Dataverse:", error.response?.data || error);
+                console.error("Erreur lors de l'insertion dans SharePoint :", error.response?.data || error);
             }
-            
-            
+
 
 
             await MonthlyExpenseHistory.insertMany(historyToInsert);
@@ -188,9 +227,6 @@ module.exports.getAllMonthlyExpenseResultCtrl = asyncHandler(async (req, res) =>
     })
 })
 
-
-
-
 /*--------------------------------------------------
 * @desc    Get all Monthly Expenses Result
 * @router  /api/monthly-Expense-result/getAll
@@ -209,7 +245,6 @@ module.exports.getAllConfirmedMonthlyExpenseResultCtrl = asyncHandler(async (req
         MonthlyExpenseResultDatas: getAll
     })
 })
-
 
 
 /*--------------------------------------------------

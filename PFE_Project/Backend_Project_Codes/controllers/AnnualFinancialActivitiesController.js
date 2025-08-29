@@ -3,6 +3,8 @@ const { AnnualFinancialActivities, CreateAnnualActivityValidation } = require(".
 const { MonthlyFinancialActivities } = require("../models/MonthlyFinancialActivitiesModel.js");
 const axios = require('axios')
 const { AnnualFinanceTrainML } = require('../models/PredictionsModels/AnnualFinance.js')
+const { ClientSecretCredential } = require("@azure/identity");
+require("dotenv").config();
 
 
 
@@ -10,21 +12,21 @@ const { AnnualFinanceTrainML } = require('../models/PredictionsModels/AnnualFina
 
 // ---------------------------------Token Auto Generate-----------------------------------------
 
-require("dotenv").config()
-const { tanentId, clientId, clientSecret, url } = process.env
+// require("dotenv").config()
+// const { tanentId, clientId, clientSecret, url } = process.env
 
-const getAccessToken = async () => {
-  const tokenResponse = await axios.post(
-    `https://login.microsoftonline.com/${tanentId}/oauth2/token`,
-    new URLSearchParams({
-      grant_type: "client_credentials",
-      client_id: `${clientId}`,
-      client_secret: `${clientSecret}`,
-      resource: `${url}`
-    })
-  );
-  return tokenResponse.data.access_token;
-};
+// const getAccessToken = async () => {
+//   const tokenResponse = await axios.post(
+//     `https://login.microsoftonline.com/${tanentId}/oauth2/token`,
+//     new URLSearchParams({
+//       grant_type: "client_credentials",
+//       client_id: `${clientId}`,
+//       client_secret: `${clientSecret}`,
+//       resource: `${url}`
+//     })
+//   );
+//   return tokenResponse.data.access_token;
+// };
 
 // ___________________________________________________________________________________________
 
@@ -100,31 +102,45 @@ module.exports.createAnnualFinancialActivityCtrl = asyncHandler(async (req, res)
 
   await annualActivity.save();
 
-  // 8️⃣ Envoyer les données vers Dataverse
-  const data = {
-    cr604_year: year,
-    cr604_bankfund: bankFund,
-    cr604_totalrevenue: totalRevenue,
-    cr604_totalexpenses: totalExpenses,
-    cr604_rest: soldeAnnuel,
-    cr604_globalrest: globalRest,
-    cr604_financialstatus: financialStatus,
+  // 8️⃣ Envoyer les données vers SharePoint
+  const insertDataIntoSharepointListe = {
+    Title: "Activité Financière " + year,   // ⚠️ 'Title' obligatoire dans SharePoint
+    Year: year.toString(),
+    BankFund: bankFund.toString(),
+    TotalRevenue: totalRevenue.toString(),
+    TotalExpenses: totalExpenses.toString(),
+    Rest: soldeAnnuel.toString(),
+    GlobalRest: globalRest.toString(),
+    FinancialStatus: financialStatus,
   };
+  
+  
+  try {
+    const token = await getAccessToken();
+    const siteId = await getSiteId();
+    const listName = "Manage_Annual_Activities"; // Nom de ta liste SharePoint
 
-  await axios.post(
-    `${url}/api/data/v9.0/cr604_annual_financial_activities_gps`,
-    data,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+    const response = await axios.post(
+      `https://graph.microsoft.com/v1.0/sites/${siteId}/lists/${listName}/items`,
+      { fields: insertDataIntoSharepointListe },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+
+    console.log("Insertion réussie dans SharePoint :", response.data);
+  } catch (error) {
+    console.error("Erreur lors de l'insertion dans SharePoint :", error.response?.data || error);
+  }
+
 
   // 9️⃣ Récupération des données de l'année précédente
   const previousYearData = await AnnualFinancialActivities.findOne({ year: (parseInt(year) - 1).toString() });
-  
+
   let croissanceRevenu = 0, croissanceCharges = 0;
   if (previousYearData) {
     croissanceRevenu = ((totalRevenue - previousYearData.totalRevenue) / (previousYearData.totalRevenue || 1)) * 100;

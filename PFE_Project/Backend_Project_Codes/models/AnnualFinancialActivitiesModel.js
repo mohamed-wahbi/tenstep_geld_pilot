@@ -32,6 +32,8 @@ const AnnualFinancialActivitiesSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+
+
 // Middleware to calculate financial values before saving
 AnnualFinancialActivitiesSchema.pre("save", async function (next) {
   try {

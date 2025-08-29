@@ -39,7 +39,7 @@ const MonthlyActivities: React.FC = () => {
            Monthly Financial Activities
           </h5>
           <img 
-            src={require('../assets/logo-removebg-preview.png')} 
+            src={require('../assets/tenstep.png')} 
             alt='logo' 
             className={styles.logoImgDash} 
           />
