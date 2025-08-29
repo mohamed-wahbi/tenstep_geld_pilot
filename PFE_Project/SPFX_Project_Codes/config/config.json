@@ -1,0 +1,153 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "hello-world-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/helloWorld/HelloWorldWebPart.js",
+          "manifest": "./src/webparts/helloWorld/HelloWorldWebPart.manifest.json"
+        }
+      ]
+    },
+    "welcome-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/welcome/WelcomeWebPart.js",
+          "manifest": "./src/webparts/welcome/WelcomeWebPart.manifest.json"
+        }
+      ]
+    },
+    "info-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/info/InfoWebPart.js",
+          "manifest": "./src/webparts/info/InfoWebPart.manifest.json"
+        }
+      ]
+    },
+    "footer-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/footer/FooterWebPart.js",
+          "manifest": "./src/webparts/footer/FooterWebPart.manifest.json"
+        }
+      ]
+    },
+    "login-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/login/LoginWebPart.js",
+          "manifest": "./src/webparts/login/LoginWebPart.manifest.json"
+        }
+      ]
+    },
+    "register-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/register/RegisterWebPart.js",
+          "manifest": "./src/webparts/register/RegisterWebPart.manifest.json"
+        }
+      ]
+    },
+    "access-info-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/accessInfo/AccessInfoWebPart.js",
+          "manifest": "./src/webparts/accessInfo/AccessInfoWebPart.manifest.json"
+        }
+      ]
+    },
+    "authorization-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/authorization/AuthorizationWebPart.js",
+          "manifest": "./src/webparts/authorization/AuthorizationWebPart.manifest.json"
+        }
+      ]
+    },
+    "ia-support-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/iaSupport/IaSupportWebPart.js",
+          "manifest": "./src/webparts/iaSupport/IaSupportWebPart.manifest.json"
+        }
+      ]
+    },
+    "new-client-charge-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/newClientCharge/NewClientChargeWebPart.js",
+          "manifest": "./src/webparts/newClientCharge/NewClientChargeWebPart.manifest.json"
+        }
+      ]
+    },
+    "invoice-revenue-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/invoiceRevenue/InvoiceRevenueWebPart.js",
+          "manifest": "./src/webparts/invoiceRevenue/InvoiceRevenueWebPart.manifest.json"
+        }
+      ]
+    },
+    "historys-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/historys/HistorysWebPart.js",
+          "manifest": "./src/webparts/historys/HistorysWebPart.manifest.json"
+        }
+      ]
+    },
+    "expenses-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/expenses/ExpensesWebPart.js",
+          "manifest": "./src/webparts/expenses/ExpensesWebPart.manifest.json"
+        }
+      ]
+    },
+    "monthly-activities-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/monthlyActivities/MonthlyActivitiesWebPart.js",
+          "manifest": "./src/webparts/monthlyActivities/MonthlyActivitiesWebPart.manifest.json"
+        }
+      ]
+    },
+    "annual-activities-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/annualActivities/AnnualActivitiesWebPart.js",
+          "manifest": "./src/webparts/annualActivities/AnnualActivitiesWebPart.manifest.json"
+        }
+      ]
+    },
+    "prediction-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/prediction/PredictionWebPart.js",
+          "manifest": "./src/webparts/prediction/PredictionWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "HelloWorldWebPartStrings": "lib/webparts/helloWorld/loc/{locale}.js",
+    "WelcomeWebPartStrings": "lib/webparts/welcome/loc/{locale}.js",
+    "InfoWebPartStrings": "lib/webparts/info/loc/{locale}.js",
+    "FooterWebPartStrings": "lib/webparts/footer/loc/{locale}.js",
+    "LoginWebPartStrings": "lib/webparts/login/loc/{locale}.js",
+    "RegisterWebPartStrings": "lib/webparts/register/loc/{locale}.js",
+    "AccessInfoWebPartStrings": "lib/webparts/accessInfo/loc/{locale}.js",
+    "AuthorizationWebPartStrings": "lib/webparts/authorization/loc/{locale}.js",
+    "IaSupportWebPartStrings": "lib/webparts/iaSupport/loc/{locale}.js",
+    "NewClientChargeWebPartStrings": "lib/webparts/newClientCharge/loc/{locale}.js",
+    "InvoiceRevenueWebPartStrings": "lib/webparts/invoiceRevenue/loc/{locale}.js",
+    "HistorysWebPartStrings": "lib/webparts/historys/loc/{locale}.js",
+    "ExpensesWebPartStrings": "lib/webparts/expenses/loc/{locale}.js",
+    "MonthlyActivitiesWebPartStrings": "lib/webparts/monthlyActivities/loc/{locale}.js",
+    "AnnualActivitiesWebPartStrings": "lib/webparts/annualActivities/loc/{locale}.js",
+    "PredictionWebPartStrings": "lib/webparts/prediction/loc/{locale}.js"
+  }
+}

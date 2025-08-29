@@ -1,0 +1,99 @@
+.InfoPlatformComp {
+  background-color: #f3f6fc78;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.TitreComp {
+  text-align: center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(90deg, #182936, #c2272d);
+  font-size: 40px;
+  font-weight: 700;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 36px;
+  width: 60%;
+  margin: auto;
+}
+
+.CardInfoComp {
+  padding: 30px;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Espacement entre les cartes */
+}
+
+.cardInfoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px;
+  padding: 35px;
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  min-height: 250px; /* Empêche les cartes de s'effondrer */
+  border-left: 5px solid #c2272d;
+}
+
+.cardInfoItem:hover {
+  transform: scale(1.03);
+}
+
+.cardInfoItem:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.cardInfoItem img {
+  max-width: 35%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+  animation: rotate 3s infinite ease-in-out;
+}
+
+/* Définition de l'animation de rotation */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+
+
+.cardInfoItem img:hover {
+  transform: scale(1.1);
+}
+
+.descInfo {
+  color: #363636;
+  font-size: clamp(1.6rem, 0.096vw + 1.569rem, 1.7rem);
+  padding: 20px;
+  max-width: 55%;
+}
+
+.descInfo h4 {
+  font-size: clamp(1.8rem, 0.1vw + 1.7rem, 2rem);
+  font-weight: 700;
+  color: #182936;
+  margin-bottom: 12px;
+}
+
+.descInfo p {
+  color: rgb(77, 77, 77);
+  font-size: 18px;
+  font-weight: 450;
+  line-height: 1.6;
+}

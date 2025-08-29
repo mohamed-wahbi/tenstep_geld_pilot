@@ -1,0 +1,177 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e9e9e9;
+  width:100%;
+}
+
+.backgroundImage {
+  position: relative;
+  width: 100%;
+  background-image: url('../assets/header.png'); /* Remplace par ton image */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.logoImg {
+  height: auto;
+  width: 200px;
+  padding: 10px;
+  filter: drop-shadow(0px 0px 7px rgba(255, 255, 255, .5));}
+
+.moneyLogo {
+  width: 300px;
+  height: auto;
+}
+
+.contentLeft {
+  margin: 50px;
+  width: 80%;
+  text-align: center;
+  color: white;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  border-radius: 200px;
+  position: relative;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contentLeft1 {
+  width: 60%;
+  padding-right: 25px;
+  border-right: 1px solid white;
+}
+
+.contentLeft::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+  transform: scaleY(-1);
+  opacity: 0.3;
+  border-radius: 200px;
+}
+
+
+/* Ajout d'une lueur dynamique */
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px #c2272d;
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  }
+}
+
+.contentLeft:hover {
+  animation: glowing 1.5s infinite alternate;
+}
+
+.contentRight {
+  margin: 15px;
+  width: 40%;
+  text-align: center;
+  color: white;
+  padding: 10px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  animation: floating 3s infinite ease-in-out; /* Animation continue */
+}
+
+/* Animation de flottement */
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Style du logo avec effet de rotation subtile */
+.moneyLogo {
+  width: 200px;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+  animation: rotateMoney 10s infinite linear; /* Rotation continue */
+}
+
+/* Animation de rotation subtile */
+@keyframes rotateMoney {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Texte avec effet lumineux */
+.moneyP {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #314f6f, #c2272d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowingText 2s infinite alternate;
+}
+
+/* Effet lumineux sur le texte */
+@keyframes glowingText {
+  0% {
+    text-shadow: 0 0 10px #314f6f;
+  }
+  100% {
+    text-shadow: 0 0 20px #c2272d;
+  }
+
+}
+
+
+.title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.paragraph {
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.0;
+}
+
+.getStartedButton {
+  background: linear-gradient(45deg, #c2272d, #314f6f);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.getStartedButton:hover {
+  background: linear-gradient(45deg, #314f6f, #c2272d);
+  transform: scale(1.1);
+}

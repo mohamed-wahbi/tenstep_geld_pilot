@@ -1,0 +1,67 @@
+import * as React from 'react';
+import { useState } from 'react';
+import styles from "./InvoiceRevenue.module.scss";
+import InvoiceWebPart from './Childs/Invoice/InvoiceWebPart';
+import RevenueWebPart from './Childs/RevenueWebPart';
+
+
+
+const NewClientCharge: React.FC = () => {
+  // const token = localStorage.getItem("token");
+  // const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+
+  const [activeTab, setActiveTab] = useState<string>('partners')
+
+  // useEffect(() => {
+  //     if (token != null) {
+  //       setIsAdmin(JSON.parse(atob(token.split(".")[1])).isAdmin);
+  //       console.log(token)
+  //       if (isAdmin === false) {
+  //         window.location.href = "https://alightconsulting.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
+  //       }
+  //     }
+  //     if (token == null) {
+  //       window.location.href = "https://alightconsulting.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
+  //     }
+  //   }, [token, isAdmin]);
+
+
+
+
+
+  
+
+  return (
+    <div className={styles.DashComp}>
+      <div className={styles.headerDash}>
+        <div className={styles.titleDash}>
+          <h5 className={styles.titleTextDash}>
+            Invoices And Monthly Revenues Management System
+          </h5>
+          <img 
+            src={require('../assets/tenstep.png')} 
+            alt='logo' 
+            className={styles.logoImgDash}
+          />
+        </div>
+        <div className={styles.navLinks}>
+          <p 
+            className={`${styles.link} ${activeTab === 'partners' ? styles.active : ''}`} 
+            onClick={() => setActiveTab('partners')}>
+            Invoices
+          </p>
+          <p 
+            className={`${styles.link} ${activeTab === 'create' ? styles.active : ''}`} 
+            onClick={() => setActiveTab('create')}>
+            Revenues
+          </p>
+        </div>
+      </div>
+      <div className={styles.tableContainer}>
+        {activeTab === 'partners' && <InvoiceWebPart/> }
+        {activeTab === 'create' && <RevenueWebPart /> }
+      </div>
+    </div>
+  );
+};
+export default NewClientCharge

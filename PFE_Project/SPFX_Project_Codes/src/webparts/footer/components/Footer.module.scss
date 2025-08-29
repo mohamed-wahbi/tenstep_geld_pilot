@@ -1,0 +1,152 @@
+.footerComp {
+  width: 100%;
+  background-color: #ffffff;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  padding-top: 20px;
+}
+
+/* ----- Footer Top ----- */
+.footerTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.alightLogo img {
+  transition: transform 0.3s ease-in-out;
+  height: 65px;
+  width: 180px;
+}
+
+.alightLogo img:hover {
+  transform: scale(1.1);
+}
+
+/* Social Icons */
+.alightSocials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.alightSocials .socialIcon {
+  height: 40px;
+  width: 40px;
+  background-color: #c2272d;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.alightSocials .socialIcon:hover {
+  background-color: #c2272d;
+  transform: scale(1.1);
+}
+
+/* Navigation Links */
+.alightLinks {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.alightLinks .linkText {
+  color: #c1ccd5;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.alightLinks .linkText:hover {
+  color: #c2272d;
+}
+
+.bar {
+  height: 15px;
+  width: 2px;
+  background-color: #ffffff;
+}
+
+/* ----- Footer Bottom ----- */
+.footerBottom {
+  background-blend-mode: soft-light;
+  background-color: #0f244591;
+  background-image: url("../assets/footerBack.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 10px 0;
+  text-align: center;
+  background-position-y: -271px;
+}
+
+.footerBottom h5 {
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.footerBottom p {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.heartIcon {
+  color: #c2272d;
+  animation: heartbeat 1.5s infinite;
+}
+
+.socialIcon a {
+  color: white;
+  text-decoration: none;
+}
+
+
+/* Animation du cœur */
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .alightLinks {
+    flex-direction: column;
+  }
+
+  .bar {
+    display: none;
+  }
+
+  .footerBottom h5 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .alightLogo img {
+    height: 65px;
+    width: 180px;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": false,
+    "nodeVersion": "18.20.6",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.24.0"
+    },
+    "version": "1.20.0",
+    "libraryName": "geld-pilot",
+    "libraryId": "56ce17d7-381a-4613-b2d4-7015d23ca36c",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "Geld Pilot",
+    "solutionShortDescription": "Geld Pilot description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "backend_project_codes",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Salwej Med.Wahbi",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@azure/identity": "^4.10.1",
+    "@tensorflow/tfjs-node": "^4.22.0",
+    "axios": "^1.8.3",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-async-handler": "^1.2.0",
+    "fs": "^0.0.1-security",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.2",
+    "nodemon": "^3.1.9",
+    "undici": "^7.5.0"
+  }
+
+  
+}

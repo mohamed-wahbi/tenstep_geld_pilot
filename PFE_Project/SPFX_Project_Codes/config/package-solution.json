@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "geld-pilot-client-side-solution",
+    "id": "56ce17d7-381a-4613-b2d4-7015d23ca36c",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.20.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Geld Pilot description"
+      },
+      "longDescription": {
+        "default": "Geld Pilot description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "geld-pilot Feature",
+        "description": "The feature that activates elements of the geld-pilot solution.",
+        "id": "d72d3920-ec36-445d-a577-5d5b0b911443",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/geld-pilot.sppkg"
+  }
+}
