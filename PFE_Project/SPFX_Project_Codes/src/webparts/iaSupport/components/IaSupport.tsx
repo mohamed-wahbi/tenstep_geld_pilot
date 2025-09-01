@@ -141,30 +141,21 @@ const IaSupport: React.FC = () => {
   return (
     <div className={styles.DashComp}>
       {/* Header Section */}
-      <div className={styles.headerDash}>
+
+      <div className={styles.header}>
         <div className={styles.titleDash}>
-          <h5 className={styles.titleTextDash}>AI Support Tools</h5>
+          <h5 className={styles.titleTextDash}>
+            AI Support Tools
+          </h5>
           <img
-            src={require("../assets/tenstep.png")}
-            alt="logo"
+            src={require('../assets/tenstep.png')}
+            alt='logo'
             className={styles.logoImgDash}
           />
         </div>
-
-        {/* Navigation Tabs */}
         <div className={styles.navLinks}>
-          <p
-            className={`${styles.link} ${activeTab === "partners" ? styles.active : ""}`}
-            onClick={() => setActiveTab("partners")}
-          >
-            Smarty
-          </p>
-          <p
-            className={`${styles.link} ${activeTab === "create" ? styles.active : ""}`}
-            onClick={() => setActiveTab("create")}
-          >
-            Geld-Bot
-          </p>
+          <p className={`${styles.link} ${activeTab === 'partners' ? styles.active : ''}`} onClick={() => setActiveTab('partners')}>Partners</p>
+          <p className={`${styles.link} ${activeTab === 'create' ? styles.active : ''}`} onClick={() => setActiveTab('create')}>Create User</p>
         </div>
       </div>
 
@@ -219,6 +210,12 @@ const IaSupport: React.FC = () => {
                     value={userInput}
                     onChange={handleUserInput}
                     disabled={isLoading}
+                    onKeyDown={(e)=>{ 
+                      if(e.key==="Enter"){
+                        e.preventDefault();
+                        sendMessage()
+                      }
+                    }}
                   />
                   <button
                     onClick={sendMessage}

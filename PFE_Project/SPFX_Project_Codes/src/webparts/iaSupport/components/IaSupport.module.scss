@@ -18,12 +18,6 @@
   flex-direction: column;
 }
 
-.titleDash {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .titleTextDash {
   text-align: -webkit-center;
   -webkit-background-clip: text;
@@ -33,9 +27,28 @@
   font-size: 20px;
 }
 
+
 .navLinks {
   display: flex;
   gap: 20px;
+  font-size: 18px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+  flex-direction: column;}
+
+  .titleDash {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: linear-gradient(-49deg, #c5697969, #ececec40, #ffffff0f, #b162180d) !important;
+  border-radius: 5px !important;
+  padding: 16px 10px !important;
+  box-shadow: 10px 10px 11px 1px #eeeeee !important;
 }
 
 .link {
@@ -55,6 +68,8 @@
   width: 100px;
   height: 40px;
 }
+
+
 
 .DashContent {
   background: #f2f2f285;
