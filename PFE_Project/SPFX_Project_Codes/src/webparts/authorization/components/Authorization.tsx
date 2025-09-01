@@ -117,9 +117,17 @@ const Authorization: React.FC<IAuthorizationProps> = () => {
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+        window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
+  };
+
 
   return (
     <div className={styles.authorizationComp}>
+      <div className={styles.logoutNav}>
+        <button onClick={logout} className={styles.logoutBtn}>Logout</button>
+      </div>
       <ToastContainer />
       <div className={styles.header}>
         <div className={styles.titleDash}>
