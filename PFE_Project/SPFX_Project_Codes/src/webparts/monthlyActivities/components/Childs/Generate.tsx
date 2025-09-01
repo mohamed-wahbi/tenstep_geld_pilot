@@ -109,7 +109,13 @@ const Generate: React.FC = () => {
           </div>
 
           {generatMonthlyActivitiesTab && (
-            <div className={styles.GenerateForm}>
+            <form
+              className={styles.GenerateForm}
+              onSubmit={(e) => {
+                e.preventDefault(); // empêcher le rechargement de la page
+                generatedMonthlyActivitiesResults();
+              }}
+            >
               <div className={styles.inputGenerateForm}>
                 <label>Year</label>
                 <input
@@ -142,7 +148,6 @@ const Generate: React.FC = () => {
                 />
               </div>
 
-
               <div className={styles.inputGenerateForm}>
                 <label>External Bad Facts</label>
                 <input
@@ -155,14 +160,15 @@ const Generate: React.FC = () => {
               </div>
 
               <div className={styles.btnContent}>
-                <button style={{ border: "none" }} onClick={generatedMonthlyActivitiesResults}>
+                <button type="submit" style={{ border: "none" }}>
                   ➕
                 </button>
               </div>
-            </div>
+            </form>
           )}
         </div>
       </div>
+
 
       {/* ---- Latest Financial Activity Table ---- */}
       <div className={styles.TableContent} >
@@ -184,13 +190,13 @@ const Generate: React.FC = () => {
           <tbody>
             {latestActivities ? (
               <tr>
-                <td style={{textAlign:"center"}}>{latestActivities.year}</td>
-                <td style={{textAlign:"center"}}>{latestActivities.month}</td>
-                <td style={{textAlign:"end"}}>{latestActivities.bankFund}</td>
-                <td style={{textAlign:"end"}}>{latestActivities.totalRevenue}</td>
-                <td style={{textAlign:"end"}}>{latestActivities.totalExpenses}</td>
-                <td style={{textAlign:"end"}}>{latestActivities.rest}</td>
-                <td style={{textAlign:"end"}}>{latestActivities.globalRest}</td>
+                <td style={{ textAlign: "center" }}>{latestActivities.year}</td>
+                <td style={{ textAlign: "center" }}>{latestActivities.month}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.bankFund}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.totalRevenue}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.totalExpenses}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.rest}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.globalRest}</td>
                 <td>{latestActivities.financialStatus}</td>
                 <td>{latestActivities.comment}</td>
               </tr>

@@ -22,7 +22,7 @@ const Generate: React.FC = () => {
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [bankFund, setBankFund] = useState<number | null>(null);
   const [facteurExterne, setFacteurExterne] = useState<number | null>(null);
-  
+
   const [latestActivities, setLatestActivities] = useState<LatestActivities | null>(null);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const Generate: React.FC = () => {
       if (error.response && error.response.status === 400) {
         console.log(error.response.data.message)
         setErrorMsg(error.response.data.message)
-        
+
 
       } else {
         setErrorMsg(error.response.data.message);
@@ -91,7 +91,7 @@ const Generate: React.FC = () => {
   return (
     <div>
       <ToastContainer />
-      
+
       {/* ---- Generate Monthly Activities Section ---- */}
       <div className={styles.HeaderTabelCtrl} style={{ display: "flex", justifyContent: "end", alignItems: "center" }}>
         <div className={styles.generateRevenue}>
@@ -102,7 +102,7 @@ const Generate: React.FC = () => {
                 setGeneratAnnualActivitiesTab(!generatAnnualActivitiesTab);
                 setYear("");
                 setBankFund(null);
-                setFacteurExterne(null)
+                setFacteurExterne(null);
               }}
             >
               {generatAnnualActivitiesTab ? "❌" : "🆕"}
@@ -110,7 +110,13 @@ const Generate: React.FC = () => {
           </div>
 
           {generatAnnualActivitiesTab && (
-            <div className={styles.GenerateForm}>
+            <form
+              className={styles.GenerateForm}
+              onSubmit={(e) => {
+                e.preventDefault(); // empêche le rechargement de la page
+                generatedMonthlyActivitiesResults();
+              }}
+            >
               <div className={styles.inputGenerateForm}>
                 <label>Year</label>
                 <input
@@ -145,16 +151,17 @@ const Generate: React.FC = () => {
               </div>
 
               <div className={styles.btnContent}>
-                <button style={{ border: "none" }} onClick={generatedMonthlyActivitiesResults}>
+                <button type="submit" style={{ border: "none" }}>
                   ➕
                 </button>
               </div>
-            </div>
+            </form>
           )}
         </div>
       </div>
 
-      {errorMsg?<p style={{color:"red"}}>{errorMsg}</p>:null}
+
+      {errorMsg ? <p style={{ color: "red" }}>{errorMsg}</p> : null}
 
       {/* ---- Latest Financial Activity Table ---- */}
       <div className={styles.TableContent} >
@@ -175,13 +182,13 @@ const Generate: React.FC = () => {
           <tbody>
             {latestActivities ? (
               <tr>
-                <td>{latestActivities.year}</td>
-                <td>{latestActivities.bankFund}</td>
-                <td>{latestActivities.totalRevenue}</td>
-                <td>{latestActivities.totalExpenses}</td>
-                <td>{latestActivities.rest}</td>
-                <td>{latestActivities.globalRest}</td>
-                <td>{latestActivities.financialStatus}</td>
+                <td style={{ textAlign: "center" }}>{latestActivities.year}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.bankFund}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.totalRevenue}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.totalExpenses}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.rest}</td>
+                <td style={{ textAlign: "end" }}>{latestActivities.globalRest}</td>
+                <td >{latestActivities.financialStatus}</td>
                 <td>{latestActivities.comment}</td>
               </tr>
             ) : (
