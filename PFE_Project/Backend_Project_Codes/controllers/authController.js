@@ -119,7 +119,7 @@ module.exports.loginCtrl = asyncHandler(async (req, res) => {
 * @access  only admin
 ----------------------------------------------------*/
 module.exports.getAllUsersCtrl = asyncHandler(async(req,res)=>{
-  const getAllUsers = await User.find({})
+  const getAllUsers = await User.find({}).sort({ createdAt: -1 })
 
   if(getAllUsers.length === 0){
     return res.status(400).json({message:"No User regstred in data base!"})

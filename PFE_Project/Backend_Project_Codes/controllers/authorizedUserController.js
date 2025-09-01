@@ -38,7 +38,7 @@ module.exports.createAuthorizationCrtl = asyncHandler(async (req, res) => {
 * @access  Admin only
 ----------------------------------------------------*/
 module.exports.getAllAuthCtrl = asyncHandler(async (req, res) => {
-    const allAuthorizedUsers = await AuthorizedUser.find({});
+    const allAuthorizedUsers = await AuthorizedUser.find({}).sort({ createdAt: -1 });
 
     // if (allAuthorizedUsers.length === 0) {
     //      res.status(404).json({

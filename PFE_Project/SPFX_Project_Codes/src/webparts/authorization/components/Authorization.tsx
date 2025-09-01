@@ -58,6 +58,7 @@ const Authorization: React.FC<IAuthorizationProps> = () => {
       fetchAllAuthorizedUsers();
       fetchAllUsers();
       notify("Authorization user created successfuly")
+      setIsClicked(false)
     } catch (error) {
       setUserEmail("")
       notify("Error creating user authorization, try with another address.");
@@ -144,6 +145,7 @@ const Authorization: React.FC<IAuthorizationProps> = () => {
               <table className={styles.table}>
                 <thead>
                   <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -153,9 +155,10 @@ const Authorization: React.FC<IAuthorizationProps> = () => {
                 <tbody>
                   {users.map(user => (
                     <tr key={user._id}>
-                      <td style={{ textTransform: "capitalize", fontWeight: "500" }}>{user.name}</td>
-                      <td><a href={`mailto:${user.email}`} style={{ textDecoration: "none", color: "inherit" }}>📧 {user.email}</a></td>
-                      <td><a href={`tel:${user.phone}`} style={{ textDecoration: "none", color: "inherit" }}>📱 {user.phone}</a></td>
+                      <td style={{ textTransform: "capitalize", fontWeight: "500", textAlign: "center" }}>{user._id}</td>
+                      <td style={{ textTransform: "capitalize", fontWeight: "500", textAlign: "start" }}>{user.name}</td>
+                      <td style={{ textAlign: "start" }}><a href={`mailto:${user.email}`} style={{ textDecoration: "none", color: "inherit" }}>{user.email}</a></td>
+                      <td style={{ textAlign: "end" }}><a href={`tel:${user.phone}`} style={{ textDecoration: "none", color: "inherit" }}>{user.phone}</a></td>
                       <td>{user.isConnected ? <div className={styles.connected}></div> : <div className={styles.notConnected}></div>}</td>
                     </tr>
                   ))}
@@ -168,11 +171,25 @@ const Authorization: React.FC<IAuthorizationProps> = () => {
         {activeTab === 'create' && (
           <div  >
             <div className={styles.CreatedUser} >
-              <button className={isClicked ? styles.addUserBtnLogo : styles.addUserBtnText} onClick={() => { setIsClicked(!isClicked); createUserAuthorization(); }}>
+
+            {isClicked? <button className={styles.addUserBtnLogo} onClick={() => { setIsClicked(!isClicked); createUserAuthorization(); }}>➕</button> : <button className={styles.addUserBtnText} onClick={() => { setIsClicked(!isClicked)}}>Create New</button>}
+
+              {/* <button className={isClicked ? styles.addUserBtnLogo : styles.addUserBtnText} onClick={() => { setIsClicked(!isClicked); createUserAuthorization(); }}>
                 {isClicked ? "➕" : "Create New"}
-              </button>
+              </button> */}
+
               {isClicked && (
-                <input type="email" placeholder="Enter email of user" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} className={styles.userInput} />
+                <input type="email" placeholder="Enter email of user" value={userEmail}
+
+                  onChange={(e) => setUserEmail(e.target.value)} className={styles.userInput}
+                  // ______Ecouter le click sur Entre_______________
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      createUserAuthorization();
+                    }
+                  }}
+                />
               )}
             </div>
             {authUsers.length === 0 ? <p>No authorized users, you can create one.</p> : (
@@ -188,10 +205,10 @@ const Authorization: React.FC<IAuthorizationProps> = () => {
                 <tbody>
                   {authUsers.map(user => (
                     <tr key={user._id}>
-                      <td><a href={`mailto:${user.authorizedEmail}`} style={{ textDecoration: "none", color: "inherit" }}>📧 {user.authorizedEmail}</a></td>
-                      <td>{user.isRegistred ? "✅" : "⛔"}</td>
-                      <td>{formatDate(user.createdAt)}</td>
-                      <td><button className={styles.controlBtnDelete} onClick={() => deleteOneAuthUser(user._id, user.authorizedEmail)} >🗑️</button></td>
+                      <td><a href={`mailto:${user.authorizedEmail}`} style={{ textDecoration: "none", color: "inherit" }}>{user.authorizedEmail}</a></td>
+                      <td style={{ textAlign: "center" }}>{user.isRegistred ? "✅" : "⛔"}</td>
+                      <td style={{ textAlign: "center" }}>{formatDate(user.createdAt)}</td>
+                      <td style={{ textAlign: "center" }}><button className={styles.controlBtnDelete} onClick={() => deleteOneAuthUser(user._id, user.authorizedEmail)} >🗑️</button></td>
                     </tr>
                   ))}
                 </tbody>
