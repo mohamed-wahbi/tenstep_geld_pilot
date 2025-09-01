@@ -26,13 +26,19 @@ const MonthlyActivities: React.FC = () => {
   //   }, [token, isAdmin]);
 
 
-
+const logout = () => {
+    localStorage.removeItem("token");
+        window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
+  };
 
 
   
 
   return (
     <div className={styles.DashComp}>
+      <div className={styles.logoutNav}>
+        <button onClick={logout} className={styles.logoutBtn}>Logout</button>
+      </div>
       <div className={styles.headerDash}>
         <div className={styles.titleDash}>
           <h5 className={styles.titleTextDash}>

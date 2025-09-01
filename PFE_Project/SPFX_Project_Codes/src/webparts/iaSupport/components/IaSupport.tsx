@@ -138,10 +138,17 @@ const IaSupport: React.FC = () => {
 
 
 
+  const logout = () => {
+    localStorage.removeItem("token");
+        window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
+  };
+
   return (
     <div className={styles.DashComp}>
       {/* Header Section */}
-
+<div className={styles.logoutNav}>
+        <button onClick={logout} className={styles.logoutBtn}>Logout</button>
+      </div>
       <div className={styles.header}>
         <div className={styles.titleDash}>
           <h5 className={styles.titleTextDash}>

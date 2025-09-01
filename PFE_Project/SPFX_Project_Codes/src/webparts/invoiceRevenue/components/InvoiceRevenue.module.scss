@@ -7,6 +7,26 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
+.logoutNav {
+  height: 5vh;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.logoutBtn {
+  border: none;
+  padding: 5px 15px;
+  font-weight: bold;
+  background: #f38181;
+  border-radius: 20px;
+  color: #1c2167;
+  cursor: pointer;
+
+}
+
 .headerDash {
   display: flex;
   justify-content: space-between;
