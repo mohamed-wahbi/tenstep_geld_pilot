@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 const AOS = require("aos");
 import "aos/dist/aos.css";
 import styles from "../../components/NewClientCharge.module.scss";
@@ -121,7 +121,7 @@ const ClientComp: React.FC = () => {
 
 
 
- 
+
 
 
   // -----------------------Filter System--------------------------------
@@ -155,7 +155,7 @@ const ClientComp: React.FC = () => {
       clientType: "Individual",
       paymentMethod: "Credit Card",
       currency: "Dollar",
-      status:"Active"
+      status: "Active"
     });
   };
 
@@ -275,6 +275,7 @@ const ClientComp: React.FC = () => {
           <thead>
             <tr>
               <th>Controls</th>
+              <th>ID</th>
               <th>CIN</th>
               <th>Name</th>
               <th>Email</th>
@@ -292,7 +293,10 @@ const ClientComp: React.FC = () => {
             {/* Ligne pour ajouter un nouveau client en haut du tableau */}
             {newClientData && (
               <tr>
-                <td>➕</td>
+                <td style={{ textAlign: "center" }}>➕</td>
+                <td>
+                  auto generated
+                </td>
                 <td>
                   <input className={styles.CreateInput} type="text" value={newClientData.cin} onChange={(e) => handleNewClientChange(e, "cin")} />
                 </td>
@@ -330,7 +334,7 @@ const ClientComp: React.FC = () => {
                 </td>
 
                 <td>
-                  <input style={{ border: "none" }} placeholder="Data time auto" />
+                  auto generated
                 </td>
                 <td>
                   <select value={newClientData.status} onChange={(e) => handleNewClientChange(e, "status")}>
@@ -354,19 +358,20 @@ const ClientComp: React.FC = () => {
 
             {(allFiltredDatas.length != 0 ? allFiltredDatas : clients).map((client) => (
               <tr key={client._id}>
-                <td className={styles.ctrlCl}>
+                <td className={styles.ctrlCl} style={{ textAlign: "center" }}>
                   <span>⚙️</span>
                   <div className={styles.ctrlBtn}>
                     <MdDeleteOutline className={styles.deleteLogo} onClick={() => DeleteOneClient(client._id)} />
                     <HiOutlineWrench className={styles.updateLogo} onClick={() => handleEditClick(client)} />
                   </div>
                 </td>
-                <td>💳 {client.cin}</td>
+                <td style={{ textAlign: "center" }}>{client._id}</td>
+                <td style={{ textAlign: "center" }}>{client.cin}</td>
                 <td>
                   {editableRow === client._id ? (
                     <input className={styles.ChangeInput} type="text" defaultValue={client.name} onChange={(e) => handleChange(e, "name")} />
                   ) : (
-                    `🚹 ${client.name}`
+                    `${client.name}`
                   )}
                 </td>
 
@@ -375,21 +380,21 @@ const ClientComp: React.FC = () => {
                   {editableRow === client._id ? (
                     <input className={styles.ChangeInput} type="email" defaultValue={client.email} onChange={(e) => handleChange(e, "email")} />
                   ) : (
-                    `📧 ${client.email}`
+                    `${client.email}`
                   )}
                 </td>
-                <td>
+                <td style={{ textAlign: "end" }}>
                   {editableRow === client._id ? (
                     <input className={styles.ChangeInput} type="text" defaultValue={client.phone} onChange={(e) => handleChange(e, "phone")} />
                   ) : (
-                    `📱 ${client.phone}`
+                    `${client.phone}`
                   )}
                 </td>
                 <td>
                   {editableRow === client._id ? (
                     <input className={styles.ChangeInput} type="text" defaultValue={client.address} onChange={(e) => handleChange(e, "address")} />
                   ) : (
-                    `📍 ${client.address}`
+                    `${client.address}`
                   )}
                 </td>
                 <td>
@@ -424,8 +429,8 @@ const ClientComp: React.FC = () => {
                     client.currency
                   )}
                 </td>
-                <td>📆 {formatDate(client.createdAt)}</td>
-                <td>
+                <td style={{ textAlign: "center" }}>{formatDate(client.createdAt)}</td>
+                <td style={{ textAlign: "center" }}>
                   {editableRow === client._id ? (
                     <select defaultValue={client.status} onChange={(e) => handleChange(e, "status")}>
                       <option value="Active">Active</option>
