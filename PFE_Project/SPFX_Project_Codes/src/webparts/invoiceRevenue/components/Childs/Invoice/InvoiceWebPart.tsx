@@ -11,7 +11,7 @@ import CurrencyExchange from './currencyExchange';
 
 interface Invoice {
   _id: string;
-  id_client: {_id: string, name: string, currency: string; } | null;
+  id_client: { _id: string, name: string, currency: string; } | null;
   montantInitial: number;
   remise: number;
   montantApresRemise: number;
@@ -30,7 +30,7 @@ interface Client {
 }
 
 const InvoiceWebPart: React.FC = () => {
-  const [currencyTab,setCurrencyTab] = useState (false)
+  const [currencyTab, setCurrencyTab] = useState(false)
   const [addInvoicective, setAddInvoicective] = useState(false);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
@@ -219,19 +219,20 @@ const InvoiceWebPart: React.FC = () => {
         </div>
 
         <div className={styles.ctrlTabBtns}>
-          <button onClick={()=>setCurrencyTab(!currencyTab)}>💱</button>
+          <button onClick={() => setCurrencyTab(!currencyTab)}>💱</button>
           <button onClick={() => setAddInvoicective(!addInvoicective)}>🆕</button>
           <button onClick={reloadClientsDatas}>🔄️</button>
-          
+
         </div>
       </div>
-      {currencyTab? <CurrencyExchange/> : null}
+      {currencyTab ? <CurrencyExchange /> : null}
 
       <div className={styles.TableContent}>
         <table className={styles.table}>
           <thead>
             <tr>
               <th>Controls</th>
+              <th>Invoice_ID</th>
               <th>Client</th>
               <th>Used Currencies</th>
               <th>Initial Amount</th>
@@ -250,7 +251,8 @@ const InvoiceWebPart: React.FC = () => {
             {/* pour lajout de nouveau invoice: */}
             {addInvoicective ?
               <tr>
-                <td>➕</td>
+                <td style={{textAlign:"center"}}>➕</td>
+                <td>Auto Generated</td>
                 <td><select name="id_client" onChange={handleChange} value={newInvoice.id_client} className={styles.CreateInput}>
                   <option value="">Sélectionner un client</option>
                   {clients.map((client) => (
@@ -287,23 +289,24 @@ const InvoiceWebPart: React.FC = () => {
 
             {(allFiltredDatas.length != 0 ? allFiltredDatas : invoices).map((invoice) => (
               <tr key={invoice._id}>
-                {invoice.statut === "discharged" ?<td className={styles.ctrlCl}><p>✅</p></td> :
-                  <td className={styles.ctrlCl}>
+                {invoice.statut === "discharged" ? <td className={styles.ctrlCl} style={{textAlign:"center"}}><p>✅</p></td> :
+                  <td className={styles.ctrlCl} style={{textAlign: "center"}}>
                     <span>⚙️</span>
                     <div className={styles.ctrlBtn}>
                       <MdDeleteOutline className={styles.deleteLogo} onClick={() => handleDelete(invoice._id)} />
                       <HiOutlineWrench className={styles.updateLogo} onClick={() => handleEditClick(invoice)} />
                     </div>
                   </td>
-                } 
+                }
 
+                <td>{invoice.id_client?._id || "Inconnu"}</td>
                 <td>{invoice.id_client?.name || "Inconnu"}</td>
                 <td>{invoice.id_client?.currency || "Inconnu"}</td>
-                
-                <td>{invoice.montantInitial.toFixed(2)} DNT</td>
-                <td>{invoice.remise} %</td>
-                <td>{invoice.montantApresRemise?.toFixed(2)} DNT</td>
-                <td>
+
+                <td style={{ textAlign: "end" }}>{invoice.montantInitial.toFixed(2)} DNT</td>
+                <td style={{ textAlign: "end" }}>{invoice.remise} %</td>
+                <td style={{ textAlign: "end" }}>{invoice.montantApresRemise?.toFixed(2)} DNT</td>
+                <td style={{ textAlign: "end" }}>
                   {editingInvoiceId === invoice._id ? (
                     <input
                       className={styles.ChangeInput}
@@ -315,10 +318,10 @@ const InvoiceWebPart: React.FC = () => {
                     `${invoice.montantPaye?.toFixed(2)} DNT`
                   )}
                 </td>
-                <td>{invoice.montantRestant?.toFixed(2)} DNT</td>
-                <td>{formatDateTime(invoice.datePaiementEntreprise)}</td>
-                <td>{formatDateTime(invoice.datePaiementClient)}</td>
-                <td>{invoice.commentairePaiement ? invoice.commentairePaiement : "No Payment Yet"}</td>
+                <td style={{ textAlign: "end" }}>{invoice.montantRestant?.toFixed(2)} DNT</td>
+                <td style={{ textAlign: "center" }}>{formatDateTime(invoice.datePaiementEntreprise)}</td>
+                <td style={{ textAlign: "center" }}>{formatDateTime(invoice.datePaiementClient)}</td>
+                <td >{invoice.commentairePaiement ? invoice.commentairePaiement : "No Payment Yet"}</td>
                 <td>{invoice.statut}</td>
 
                 {editingInvoiceId === invoice._id ? (

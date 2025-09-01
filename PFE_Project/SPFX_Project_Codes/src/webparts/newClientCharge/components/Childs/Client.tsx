@@ -345,7 +345,7 @@ const ClientComp: React.FC = () => {
                 </td>
 
                 <td className={styles.CreateRowStyle}>
-                  <button style={{ border: "none", cursor: "pointer", background: "transparent" }} onClick={saveNewClient}>💾</button>
+                  <button style={{ border: "none", cursor: "pointer", background: "transparent" }} onClick={saveNewClient} >💾</button>
                   <button style={{ border: "none", cursor: "pointer", background: "transparent" }} onClick={() => setNewClientData(null)}>❌</button>
                 </td>
               </tr>
