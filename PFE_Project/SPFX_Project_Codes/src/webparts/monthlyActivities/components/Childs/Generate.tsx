@@ -184,13 +184,13 @@ const Generate: React.FC = () => {
           <tbody>
             {latestActivities ? (
               <tr>
-                <td>{latestActivities.year}</td>
-                <td>{latestActivities.month}</td>
-                <td>{latestActivities.bankFund}</td>
-                <td>{latestActivities.totalRevenue}</td>
-                <td>{latestActivities.totalExpenses}</td>
-                <td>{latestActivities.rest}</td>
-                <td>{latestActivities.globalRest}</td>
+                <td style={{textAlign:"center"}}>{latestActivities.year}</td>
+                <td style={{textAlign:"center"}}>{latestActivities.month}</td>
+                <td style={{textAlign:"end"}}>{latestActivities.bankFund}</td>
+                <td style={{textAlign:"end"}}>{latestActivities.totalRevenue}</td>
+                <td style={{textAlign:"end"}}>{latestActivities.totalExpenses}</td>
+                <td style={{textAlign:"end"}}>{latestActivities.rest}</td>
+                <td style={{textAlign:"end"}}>{latestActivities.globalRest}</td>
                 <td>{latestActivities.financialStatus}</td>
                 <td>{latestActivities.comment}</td>
               </tr>
