@@ -260,6 +260,7 @@ const Charge: React.FC = () => {
           <thead>
             <tr>
               <th>Controls</th>
+              <th>ID_Expense</th>
               <th>Expense Name</th>
               <th>Expense Type</th>
               <th>Amount</th>
@@ -273,7 +274,8 @@ const Charge: React.FC = () => {
             {/* Ligne pour ajouter un nouveau client en haut du tableau */}
             {newChargeData && (
               <tr>
-                <td>➕</td>
+                <td style={{textAlign:"center"}}>➕</td>
+                <td>Auto Generated</td>
                 <td>
                   <input className={styles.CreateInput} type="text" value={newChargeData.expenseName} onChange={(e) => handleNewChargeChange(e, "expenseName")} />
                 </td>
@@ -320,19 +322,21 @@ const Charge: React.FC = () => {
 
             {(allFiltredDatas.length != 0 ? allFiltredDatas : charges).map((charge) => (
               <tr key={charge._id}>
-                <td className={styles.ctrlCl}>
+                <td className={styles.ctrlCl} style={{textAlign:"center"}}>
                   <span>⚙️</span>
                   <div className={styles.ctrlBtn}>
                     <MdDeleteOutline className={styles.deleteLogo} onClick={() => DeleteOneCharge(charge._id)} />
                     <HiOutlineWrench className={styles.updateLogo} onClick={() => handleEditClick(charge)} />
                   </div>
                 </td>
-
+                <td style={{textAlign:'center'}}>
+                  {charge._id}
+                </td>
                 <td>
                   {editableRow === charge._id ? (
                     <input className={styles.ChangeInput} type="text" defaultValue={charge.expenseName} onChange={(e) => handleChange(e, "expenseName")} />
                   ) : (
-                    `✍️ ${charge.expenseName}`
+                    `${charge.expenseName}`
                   )}
                 </td>
 
@@ -352,11 +356,11 @@ const Charge: React.FC = () => {
                   )}
                 </td>
 
-                <td>
+                <td style={{textAlign:'end'}}>
                   {editableRow === charge._id ? (
                     <input className={styles.ChangeInput} type="text" defaultValue={charge.amount} onChange={(e) => handleChange(e, "amount")} />
                   ) : (
-                    `💷 ${charge.amount}`
+                    `${charge.amount}`
                   )}
                 </td>
 
@@ -371,15 +375,15 @@ const Charge: React.FC = () => {
                   )}
                 </td>
 
-                <td>
+                <td style={{textAlign:'center'}}>
                   {editableRow === charge._id ? (
                     <input className={styles.ChangeInput} type="number" defaultValue={charge.paymentDay} onChange={(e) => handleChange(e, "paymentDay")} />
                   ) : (
-                    `📆 ${charge.paymentDay}`
+                    `${charge.paymentDay}`
                   )}
                 </td>
 
-                <td>⏱️ {formatDate(charge.createdAt)}</td>
+                <td style={{textAlign:'center'}}>{formatDate(charge.createdAt)}</td>
 
 
                 {editableRow === charge._id ? (

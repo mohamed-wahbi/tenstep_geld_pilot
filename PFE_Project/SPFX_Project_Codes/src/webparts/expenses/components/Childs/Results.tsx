@@ -200,14 +200,14 @@ const results: React.FC = () => {
                             (allFiltredDatas.length > 0 ? allFiltredDatas : chargeResults).map((chargeResult) => {
                                 return (
                                     <tr key={chargeResult._id}>
-                                        <td>🗓️ {chargeResult.year} </td>
-                                        <td>📆 {chargeResult.month} </td>
-                                        <td style={{ fontWeight: "500" }}>🕴️ {chargeResult.expenseType} </td>
-                                        <td>✍️ {chargeResult.totalCharges} </td>
-                                        <td>💷 {chargeResult.totalAmount}</td>
+                                        <td style={{textAlign:"center"}}>{chargeResult.year} </td>
+                                        <td style={{textAlign:"center"}}>{chargeResult.month} </td>
+                                        <td style={{ fontWeight: "500" }}>{chargeResult.expenseType} </td>
+                                        <td style={{textAlign:"end"}}>{chargeResult.totalCharges} </td>
+                                        <td style={{textAlign:"end"}}>{chargeResult.totalAmount}</td>
                                     </tr>
                                 )
-                            })
+                            }) 
                         }
                     </tbody>
                 </table>

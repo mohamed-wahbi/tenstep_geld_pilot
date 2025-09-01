@@ -377,11 +377,11 @@ const MonthlyCharge: React.FC = () => {
             {/* new monthlyExpenses */}
             {createOneTab ?
               <tr>
-                <td>➕</td>
-                <td><input className={styles.CreateInput} value={year} placeholder="Année" onChange={(e) => setYear(e.target.value)} /></td>
-                <td><input className={styles.CreateInput} value={month} placeholder="Mois" onChange={(e) => setMonth(e.target.value)} /></td>
-                <td><input className={styles.CreateInput} value={expenseName} placeholder="Nom Charge" onChange={(e) => setExpenseName(e.target.value)} /></td>
-                <td>
+                <td style={{textAlign:"center"}}>➕</td>
+                <td style={{textAlign:"center"}}><input className={styles.CreateInput} value={year} placeholder="Année" onChange={(e) => setYear(e.target.value)} /></td>
+                <td style={{textAlign:"center"}}><input className={styles.CreateInput} value={month} placeholder="Mois" onChange={(e) => setMonth(e.target.value)} /></td>
+                <td ><input className={styles.CreateInput} value={expenseName} placeholder="Nom Charge" onChange={(e) => setExpenseName(e.target.value)} /></td>
+                <td style={{textAlign:"start"}}>
                   <select value={expenseType} onChange={(e) => setExpenseType(e.target.value)}>
                     <option value="">Sélectionner un type</option>
                     <option value="Payroll">Payroll</option>
@@ -393,9 +393,9 @@ const MonthlyCharge: React.FC = () => {
                     <option value="Other">Other</option>
                   </select>
                 </td>
-                <td><input className={styles.CreateInput} type="number" value={estimatedAmount} placeholder="Montant Prévisionnel" onChange={(e) => setEstimatedAmount(e.target.value)} /></td>
-                <td><input className={styles.CreateInput} type="number" value={actualAmount} placeholder="Montant Réel" onChange={(e) => setActualAmount(e.target.value)} /></td>
-                <td><input className={styles.CreateInput} value={covredDay} placeholder="Cavred Day" onChange={(e) => setCovredDay(e.target.value)} /></td>
+                <td style={{textAlign:"end"}}><input className={styles.CreateInput} type="number" value={estimatedAmount} placeholder="Montant Prévisionnel" onChange={(e) => setEstimatedAmount(e.target.value)} /></td>
+                <td style={{textAlign:"end"}}><input className={styles.CreateInput} type="number" value={actualAmount} placeholder="Montant Réel" onChange={(e) => setActualAmount(e.target.value)} /></td>
+                <td style={{textAlign:"center"}}><input className={styles.CreateInput} value={covredDay} placeholder="Cavred Day" onChange={(e) => setCovredDay(e.target.value)} /></td>
                 <td>Auto Generated</td>
                 <td className={styles.CreateRowStyle}>
                   <button style={{ border: "none", cursor: "pointer", background: "transparent" }} onClick={CreateManualyCharge}>💾</button>
@@ -420,7 +420,7 @@ const MonthlyCharge: React.FC = () => {
               <tr key={item._id}>
                 {item.covredDay ?
 
-                  <td className={styles.ctrlCl}>
+                  <td className={styles.ctrlCl} style={{textAlign:"center"}}>
                     <span>✅</span>
                     <div className={styles.ctrlBtn}>
                       <MdDeleteOutline className={styles.deleteLogo} onClick={() => deleteOneMonthlyChargesById(item._id)} />
@@ -428,7 +428,7 @@ const MonthlyCharge: React.FC = () => {
                   </td>
 
                   :
-                  <td className={styles.ctrlCl}>
+                  <td className={styles.ctrlCl} style={{textAlign:"center"}}>
                     <span>⚙️</span>
                     <div className={styles.ctrlBtn}>
                       <MdDeleteOutline className={styles.deleteLogo} onClick={() => deleteOneMonthlyChargesById(item._id)} />
@@ -437,11 +437,11 @@ const MonthlyCharge: React.FC = () => {
                   </td>}
 
 
-                <td>{item.year}</td>
-                <td>{item.month}</td>
-                <td>{item.expenseName}</td>
-                <td>{item.expenseType}</td>
-                <td>
+                <td style={{textAlign:"center"}}>{item.year}</td>
+                <td style={{textAlign:"center"}}>{item.month}</td>
+                <td >{item.expenseName}</td>
+                <td style={{textAlign:"start"}}>{item.expenseType}</td>
+                <td style={{textAlign:"end"}}>
                   {editableRow === item._id ? (
                     <input
                       className={styles.ChangeInput}
@@ -453,7 +453,7 @@ const MonthlyCharge: React.FC = () => {
                     item.estimatedAmount
                   )}
                 </td>
-                <td>
+                <td style={{textAlign:"end"}}>
                   {editableRow === item._id ? (
                     <input
                       className={styles.ChangeInput}
@@ -465,7 +465,7 @@ const MonthlyCharge: React.FC = () => {
                     item.actualAmount
                   )}
                 </td>
-                <td>
+                <td style={{textAlign:"center"}}>
                   {editableRow === item._id ? (
                     <input
                       className={styles.ChangeInput}
@@ -477,7 +477,7 @@ const MonthlyCharge: React.FC = () => {
                   )}
                 </td>
 
-                <td>{item.chargeStatus}</td>
+                <td >{item.chargeStatus}</td>
                 {editableRow === item._id ? (
                   <td className={styles.editRow}>
                     <button onClick={() => updateOneMonthlyChargesById(item._id)} >✅</button>

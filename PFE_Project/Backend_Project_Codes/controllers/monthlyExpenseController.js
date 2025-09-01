@@ -93,7 +93,7 @@ module.exports.createMonthlyExpenseCtrl = asyncHandler(async(req,res)=> {
 * @access  only admin
 ----------------------------------------------------*/
 module.exports.getAllMonthlyExpenseCtrl = asyncHandler(async(req,res)=> {
-    const monthlyExpenses = await MonthlyExpense.find();
+    const monthlyExpenses = await MonthlyExpense.find().sort({createdAt:-1});
     if(monthlyExpenses.length === 0){
         return res.status(400).json({
             message: "no monthlyExpenses in the data base"
