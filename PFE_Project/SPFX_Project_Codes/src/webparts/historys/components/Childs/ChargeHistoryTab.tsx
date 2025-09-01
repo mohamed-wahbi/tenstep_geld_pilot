@@ -110,15 +110,15 @@ const ChargeHistoryTab: React.FC = () => {
             {(allFiltredDatas.length > 0 ? allFiltredDatas : chargeHistoryData).map((charge) => {
               return (
                 <tr key={charge._id}>
-                  <td> {charge.year} </td>
-                  <td> {charge.month} </td>
+                  <td style={{textAlign:"center"}}> {charge.year} </td>
+                  <td style={{textAlign:"center"}}> {charge.month} </td>
                   <td> {charge.expenseName} </td>
                   <td> {charge.expenseType} </td>
-                  <td> {charge.estimatedAmount} </td>
-                  <td> {charge.actualAmount} </td>
+                  <td style={{textAlign:"end"}}> {charge.estimatedAmount} </td>
+                  <td style={{textAlign:"end"}}> {charge.actualAmount} </td>
                   <td> {charge.chargeStatus} </td>
-                  <td> {charge.covredDay} </td>
-                  <td> {formatDateTime(charge.createdAt)} </td>
+                  <td style={{textAlign:"center"}}> {charge.covredDay} </td>
+                  <td style={{textAlign:"center"}}> {formatDateTime(charge.createdAt)} </td>
                 </tr>
               )
             })}

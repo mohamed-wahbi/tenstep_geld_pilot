@@ -106,13 +106,13 @@ const InvoiceHistoryTab: React.FC = () => {
             {(allFiltredDatas.length > 0 ? allFiltredDatas : invoiceHistoryData).map((invoice) => {
               return (
                 <tr key={invoice._id}>
-                  <td> {invoice.clientName} </td>
-                  <td> {invoice.montantInitial} </td>
-                  <td> {invoice.remise} </td>
-                  <td> {invoice.montantApresRemise} </td>
-                  <td> {invoice.montantPaye} </td>
-                  <td> {formatDateTime(invoice.datePaiementEntreprise)} </td>
-                  <td> {formatDateTime(invoice.datePaiementClient)} </td>
+                  <td > {invoice.clientName} </td>
+                  <td  style={{textAlign:"end"}}> {invoice.montantInitial} </td>
+                  <td  style={{textAlign:"end"}}> {invoice.remise} </td>
+                  <td  style={{textAlign:"end"}}> {invoice.montantApresRemise} </td>
+                  <td  style={{textAlign:"end"}}> {invoice.montantPaye} </td>
+                  <td  style={{textAlign:"center"}}> {formatDateTime(invoice.datePaiementEntreprise)} </td>
+                  <td  style={{textAlign:"center"}}> {formatDateTime(invoice.datePaiementClient)} </td>
                   <td> {invoice.commentairePaiement} </td>
                   <td> {invoice.statut} </td>
                 </tr>
