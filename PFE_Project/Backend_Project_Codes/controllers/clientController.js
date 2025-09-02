@@ -87,7 +87,7 @@ async function getSiteId() {
 ----------------------------------------------------*/
 module.exports.createClientCtrl = asyncHandler(async (req, res) => {
     try {
-        const { name, cin, email, phone, address, clientType, paymentMethod, currency } = req.body;
+        const { name, cin, email, phone, address, clientType, paymentMethod, currency,status } = req.body;
 
         // 1️⃣ Validation des données
         const { error } = CreateClientValidation(req.body);
@@ -119,7 +119,8 @@ module.exports.createClientCtrl = asyncHandler(async (req, res) => {
                         Address: address,
                         ClientType: clientType,
                         PaymentMethod: paymentMethod,
-                        Currency: currency
+                        Currency: currency,
+                        Status: status
                     }
                 },
                 {
@@ -149,7 +150,8 @@ module.exports.createClientCtrl = asyncHandler(async (req, res) => {
             address,
             clientType,
             paymentMethod,
-            currency
+            currency,
+            status
         });
 
         if (!createCLMongodb) {
@@ -278,7 +280,7 @@ module.exports.deleteOneClientCtrl = asyncHandler(async (req, res) => {
 module.exports.updateOneClientCtrl = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, cin, email, phone, address, clientType, paymentMethod, currency } = req.body; // nouvelle valeur envoyée depuis Postman
+        const { name, cin, email, phone, address, clientType, paymentMethod, currency,status } = req.body; // nouvelle valeur envoyée depuis Postman
 
         // 1️⃣ Vérifier si le client existe en MongoDB
         const client = await Client.findById(id);
@@ -304,7 +306,8 @@ module.exports.updateOneClientCtrl = asyncHandler(async (req, res) => {
                 address,
                 clientType,
                 paymentMethod,
-                currency
+                currency,
+                status
             },
             { new: true } // Retourne l'objet mis à jour
         );
@@ -326,7 +329,8 @@ module.exports.updateOneClientCtrl = asyncHandler(async (req, res) => {
                 Address: address,
                 ClientType: clientType,
                 PaymentMethod: paymentMethod,
-                Currency: currency
+                Currency: currency,
+                Status: status
             },
             {
                 headers: {
