@@ -34,11 +34,11 @@ const AccessInfo: React.FC = () => {
             className={styles.profileImage}
           />
           <h2 className={styles.profileName}>
-            Rayhane Tarchoun
+            Med.Wahbi SALWEJ
           </h2>
           <p className={styles.profilePosition}>Financial Manager</p>
           <p className={styles.profileEmail}>
-            <a href="mailto:rayhan.tarchoun@alight.eu" className={styles.emailLink} style={{"color":"white","textDecoration":"none"}}>📧 rayhan.tarchoun@alight.eu</a>
+            <a href="mailto:rayhan.tarchoun@alight.eu" className={styles.emailLink} style={{"color":"white","textDecoration":"none"}}>wahbisj@gmail.com</a>
           </p>
         </div>
 

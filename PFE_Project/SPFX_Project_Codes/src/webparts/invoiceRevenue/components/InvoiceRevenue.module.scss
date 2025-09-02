@@ -20,11 +20,15 @@
   border: none;
   padding: 5px 15px;
   font-weight: bold;
-  background: #f38181;
+  background: #d4c9c9;
   border-radius: 20px;
   color: #1c2167;
   cursor: pointer;
+  transition: 0.5s;
+}
 
+.logoutBtn:hover {
+  background-color: #f5b0b0;
 }
 
 .headerDash {
@@ -401,126 +405,169 @@
 
 // ---------------------exchangerate-------------------------
 
-  
-  /* Animation du fond */
-  @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  /* 🌟 Conteneur principal */
-  .container {
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: fit-content;
-    background: transparent;
-    margin: 10px auto;
-    animation: fadeIn 1s ease-in-out;
-    height: 5px;
-    padding: 20px 5px;
+/* Animation du fond */
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 🌟 Conteneur principal */
+.container {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  background: transparent;
+  margin: 10px auto;
+  animation: fadeIn 1s ease-in-out;
+  height: 5px;
+  padding: 20px 5px;
 
 
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
-  
-  /* Animation d'apparition */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  
-  /* Animation pop-up */
-  @keyframes popUp {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* Animation pop-up */
+@keyframes popUp {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
   }
-  
-  /* 🌟 Égal (=) entre les champs */
-  .equals {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 15px 15px;
-    color: #272727;
-    animation: bounce 2s infinite;
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  /* Animation rebond */
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+}
+
+/* 🌟 Égal (=) entre les champs */
+.equals {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 15px 15px;
+  color: #272727;
+  animation: bounce 2s infinite;
+}
+
+/* Animation rebond */
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  
-  /* 🌟 Ligne de conversion */
-  .currency-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
+
+  50% {
+    transform: translateY(-5px);
   }
-  
-  .currency-row:hover {
-    transform: scale(1.03);
+}
+
+/* 🌟 Ligne de conversion */
+.currency-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.currency-row:hover {
+  transform: scale(1.03);
+}
+
+/* 🌟 Input (champs de saisie) */
+.input {
+  width: 120px;
+  padding: 4px;
+  border: 2px solid #c2272d;
+  border-radius: 5px;
+  font-size: 18px;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Effet focus sur l'input */
+.input:focus {
+  border-color: #c2272d;
+  box-shadow: 0 0 10px rgba(177, 130, 134, 0.5);
+}
+
+/* 🌟 Sélecteur de devise */
+select {
+  margin-left: 5px;
+  font-size: 17px;
+  padding: 1px;
+  border: 2px solid #97a2ab;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s, transform 0.2s;
+}
+
+/* Effet hover & focus */
+select:hover,
+select:focus {
+  border-color: #628aa4;
+  transform: scale(1.05);
+}
+
+/* 🌟 Message d'erreur */
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Animation tremblement en cas d'erreur */
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
   }
-  
-  /* 🌟 Input (champs de saisie) */
-  .input {
-    width: 120px;
-    padding: 4px;
-    border: 2px solid #c2272d;
-    border-radius: 5px;
-    font-size: 18px;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
+
+  25% {
+    transform: translateX(-5px);
   }
-  
-  /* Effet focus sur l'input */
-  .input:focus {
-    border-color: #c2272d;
-    box-shadow: 0 0 10px rgba(177, 130, 134, 0.5);
+
+  50% {
+    transform: translateX(5px);
   }
-  
-  /* 🌟 Sélecteur de devise */
-  select {
-    margin-left: 5px;
-    font-size: 17px;
-    padding: 1px;
-    border: 2px solid #97a2ab;
-    border-radius: 5px;
-    background: #fff;
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.3s, transform 0.2s;
+
+  75% {
+    transform: translateX(-5px);
   }
-  
-  /* Effet hover & focus */
-  select:hover, select:focus {
-    border-color: #628aa4;
-    transform: scale(1.05);
-  }
-  
-  /* 🌟 Message d'erreur */
-  .error {
-    color: red;
-    font-weight: bold;
-    margin-top: 10px;
-    animation: shake 0.5s ease-in-out;
-  }
-  
-  /* Animation tremblement en cas d'erreur */
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-  }
+}
 
 
 .confirmeRevenuesBtn {
@@ -536,5 +583,5 @@
 }
 
 .confirmeRevenuesBtn:hover {
-  background-color: #608d60 ;
+  background-color: #608d60;
 }

@@ -19,12 +19,17 @@
   border: none;
   padding: 5px 15px;
   font-weight: bold;
-  background: #f38181;
+  background: #d4c9c9;
   border-radius: 20px;
   color: #1c2167;
   cursor: pointer;
-
+  transition: 0.5s;
 }
+
+.logoutBtn:hover {
+  background-color: #f5b0b0;
+}
+
 
 .headerDash {
   display: flex;

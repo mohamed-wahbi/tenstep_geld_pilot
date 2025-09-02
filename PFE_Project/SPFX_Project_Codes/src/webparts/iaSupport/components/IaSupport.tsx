@@ -8,6 +8,8 @@ import { FaFilePdf, FaRobot, FaTrash } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5"
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { FiLogOut } from "react-icons/fi";
+
 
 
 
@@ -65,8 +67,8 @@ const IaSupport: React.FC = () => {
     setChatHistory([]);
     setSelectedResponses([]);
   };
- 
- 
+
+
   const toggleSelectResponse = (index: number) => {
     setSelectedResponses((prev) => {
       const newSelection = prev.includes(index)
@@ -140,15 +142,16 @@ const IaSupport: React.FC = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
-        window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
+    window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
   };
 
   return (
     <div className={styles.DashComp}>
       {/* Header Section */}
-<div className={styles.logoutNav}>
-        <button onClick={logout} className={styles.logoutBtn}>Logout</button>
-      </div>
+      <div className={styles.logoutNav}>
+        <button onClick={logout} className={styles.logoutBtn} title="Logout">
+          <FiLogOut size={20} /> {/* Icône */}
+        </button>      </div>
       <div className={styles.header}>
         <div className={styles.titleDash}>
           <h5 className={styles.titleTextDash}>
@@ -217,8 +220,8 @@ const IaSupport: React.FC = () => {
                     value={userInput}
                     onChange={handleUserInput}
                     disabled={isLoading}
-                    onKeyDown={(e)=>{ 
-                      if(e.key==="Enter"){
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
                         e.preventDefault();
                         sendMessage()
                       }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styles from "./InvoiceRevenue.module.scss";
 import InvoiceWebPart from './Childs/Invoice/InvoiceWebPart';
 import RevenueWebPart from './Childs/RevenueWebPart';
+import { FiLogOut } from "react-icons/fi";
 
 
 
@@ -27,45 +28,46 @@ const NewClientCharge: React.FC = () => {
 
 
 
-const logout = () => {
+  const logout = () => {
     localStorage.removeItem("token");
-        window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
+    window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
   };
 
-  
+
 
   return (
     <div className={styles.DashComp}>
       <div className={styles.logoutNav}>
-              <button onClick={logout} className={styles.logoutBtn}>Logout</button>
-            </div>
+        <button onClick={logout} className={styles.logoutBtn} title="Logout">
+          <FiLogOut size={20} /> {/* Icône */}
+        </button>            </div>
       <div className={styles.headerDash}>
         <div className={styles.titleDash}>
           <h5 className={styles.titleTextDash}>
             Invoices And Monthly Revenues Management System
           </h5>
-          <img 
-            src={require('../assets/tenstep.png')} 
-            alt='logo' 
+          <img
+            src={require('../assets/tenstep.png')}
+            alt='logo'
             className={styles.logoImgDash}
           />
         </div>
         <div className={styles.navLinks}>
-          <p 
-            className={`${styles.link} ${activeTab === 'partners' ? styles.active : ''}`} 
+          <p
+            className={`${styles.link} ${activeTab === 'partners' ? styles.active : ''}`}
             onClick={() => setActiveTab('partners')}>
             Invoices
           </p>
-          <p 
-            className={`${styles.link} ${activeTab === 'create' ? styles.active : ''}`} 
+          <p
+            className={`${styles.link} ${activeTab === 'create' ? styles.active : ''}`}
             onClick={() => setActiveTab('create')}>
             Revenues
           </p>
         </div>
       </div>
       <div className={styles.tableContainer}>
-        {activeTab === 'partners' && <InvoiceWebPart/> }
-        {activeTab === 'create' && <RevenueWebPart /> }
+        {activeTab === 'partners' && <InvoiceWebPart />}
+        {activeTab === 'create' && <RevenueWebPart />}
       </div>
     </div>
   );

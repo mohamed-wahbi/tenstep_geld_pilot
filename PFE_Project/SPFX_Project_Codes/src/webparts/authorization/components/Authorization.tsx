@@ -6,6 +6,8 @@ import emailjs from 'emailjs-com';
 import axios from 'axios';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FiLogOut } from "react-icons/fi";
+
 
 const Authorization: React.FC<IAuthorizationProps> = () => {
   const token = localStorage.getItem("token");
@@ -119,14 +121,16 @@ const Authorization: React.FC<IAuthorizationProps> = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
-        window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
+    window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
   };
 
 
   return (
     <div className={styles.authorizationComp}>
       <div className={styles.logoutNav}>
-        <button onClick={logout} className={styles.logoutBtn}>Logout</button>
+        <button onClick={logout} className={styles.logoutBtn} title="Logout">
+          <FiLogOut size={20} /> {/* Icône */}
+        </button>
       </div>
       <ToastContainer />
       <div className={styles.header}>
@@ -180,7 +184,7 @@ const Authorization: React.FC<IAuthorizationProps> = () => {
           <div  >
             <div className={styles.CreatedUser} >
 
-            {isClicked? <button className={styles.addUserBtnLogo} onClick={() => { setIsClicked(!isClicked); createUserAuthorization(); }}>➕</button> : <button className={styles.addUserBtnText} onClick={() => { setIsClicked(!isClicked)}}>Create New</button>}
+              {isClicked ? <button className={styles.addUserBtnLogo} onClick={() => { setIsClicked(!isClicked); createUserAuthorization(); }}>➕</button> : <button className={styles.addUserBtnText} onClick={() => { setIsClicked(!isClicked) }}>Create New</button>}
 
               {/* <button className={isClicked ? styles.addUserBtnLogo : styles.addUserBtnText} onClick={() => { setIsClicked(!isClicked); createUserAuthorization(); }}>
                 {isClicked ? "➕" : "Create New"}

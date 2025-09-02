@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styles from './MonthlyActivities.module.scss';
 import Generate from './Childs/Generate';
 import Filter from './Childs/Filter';
+import { FiLogOut } from "react-icons/fi";
 
 
 
@@ -26,38 +27,39 @@ const MonthlyActivities: React.FC = () => {
   //   }, [token, isAdmin]);
 
 
-const logout = () => {
+  const logout = () => {
     localStorage.removeItem("token");
-        window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
+    window.location.href = "https://tenstepfrance.sharepoint.com/sites/GeldPilot/SitePages/Login.aspx";
   };
 
 
-  
+
 
   return (
     <div className={styles.DashComp}>
       <div className={styles.logoutNav}>
-        <button onClick={logout} className={styles.logoutBtn}>Logout</button>
-      </div>
+        <button onClick={logout} className={styles.logoutBtn} title="Logout">
+          <FiLogOut size={20} /> {/* Icône */}
+        </button>      </div>
       <div className={styles.headerDash}>
         <div className={styles.titleDash}>
           <h5 className={styles.titleTextDash}>
-           Monthly Financial Activities
+            Monthly Financial Activities
           </h5>
-          <img 
-            src={require('../assets/tenstep.png')} 
-            alt='logo' 
-            className={styles.logoImgDash} 
+          <img
+            src={require('../assets/tenstep.png')}
+            alt='logo'
+            className={styles.logoImgDash}
           />
         </div>
         <div className={styles.navLinks}>
-          <p 
-            className={`${styles.link} ${activeTab === 'partners' ? styles.active : ''}`} 
+          <p
+            className={`${styles.link} ${activeTab === 'partners' ? styles.active : ''}`}
             onClick={() => setActiveTab('partners')}>
             Ganerate
           </p>
-          <p 
-            className={`${styles.link} ${activeTab === 'create' ? styles.active : ''}`} 
+          <p
+            className={`${styles.link} ${activeTab === 'create' ? styles.active : ''}`}
             onClick={() => setActiveTab('create')}>
             View Datas
           </p>
@@ -65,7 +67,7 @@ const logout = () => {
       </div>
       <div className={styles.tableContainer}>
         {activeTab === 'partners' && <Generate />}
-        {activeTab === 'create' && <Filter /> }
+        {activeTab === 'create' && <Filter />}
       </div>
     </div>
   );
